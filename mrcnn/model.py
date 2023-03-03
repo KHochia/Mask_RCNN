@@ -2324,6 +2324,8 @@ class MaskRCNN(object):
                                          augmentation=augmentation)
         val_generator = DataGenerator(val_dataset, self.config, shuffle=True)
 
+        log("generation successful\n")
+
         # Create log_dir if it does not exist
         if not os.path.exists(self.log_dir):
             os.makedirs(self.log_dir)
@@ -2354,6 +2356,7 @@ class MaskRCNN(object):
         else:
             workers = multiprocessing.cpu_count()
 
+        log("training starts\n")
         self.keras_model.fit(
             train_generator,
             initial_epoch=self.epoch,
@@ -2365,6 +2368,7 @@ class MaskRCNN(object):
             max_queue_size=100,
             workers=workers,
             use_multiprocessing=workers > 1,
+            verbose = 1,
         )
         self.epoch = max(self.epoch, epochs)
 
