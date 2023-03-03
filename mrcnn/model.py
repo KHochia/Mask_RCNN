@@ -2369,7 +2369,7 @@ class MaskRCNN(object):
             workers=workers,
             # use_multiprocessing=workers > 1,
             use_multiprocessing=False
-            verbose = 1,
+            verbose=1,
         )
         self.epoch = max(self.epoch, epochs)
 
