@@ -22,6 +22,9 @@ import tensorflow.keras.utils as KU
 from tensorflow.python.eager import context
 import tensorflow.keras.models as KM
 
+# keras.optimizers.optimizer_v2.gradient_descent.SGD doesn't obtain 'get_updates'
+from keras.optimizers.optimizer_v1 import SGD
+
 from mrcnn import utils
 
 # Requires TensorFlow 2.0+
@@ -2153,7 +2156,10 @@ class MaskRCNN(object):
         metrics. Then calls the Keras compile() function.
         """
         # Optimizer object
-        optimizer = keras.optimizers.SGD(
+        # optimizer = keras.optimizers.SGD(
+        #     lr=learning_rate, momentum=momentum,
+        #     clipnorm=self.config.GRADIENT_CLIP_NORM)
+        optimizer = SGD(
             lr=learning_rate, momentum=momentum,
             clipnorm=self.config.GRADIENT_CLIP_NORM)
         # Add Losses
